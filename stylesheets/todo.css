@@ -1,0 +1,84 @@
+body {
+  display: flex;
+  height: 100vh;
+}
+aside {
+  background-color: var(--darkgrey);
+  padding: 1rem;
+  width: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+img {
+  width: 2rem;
+  height: 2rem;
+}
+
+#profile-icon {
+  background-color: vaR(--yellowBG);
+  border-radius: 10rem;
+  margin-bottom: 0cap;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-top: 5px;
+}
+header div {
+  display: flex;
+  align-items: center;
+}
+
+main {
+  margin: 1rem 3rem;
+  position: relative;
+  width: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+time {
+  margin: 0 10px;
+  margin-top: 5px;
+}
+
+#add-button {
+  background-color: var(--darkgrey);
+  color: #ffffff;
+  margin: 10px;
+}
+
+#tasklists-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 5vh 5vw;
+}
+.list {
+  padding: 0.1rem 1.5rem;
+  border-radius: 10px;
+  width: 300px;
+  height: 75vh;
+}
+#todo-list {
+  background-color: var(--yellowBG);
+}
+#inprogress-list {
+  background-color: var(--greenBG);
+}
+#completed-list {
+  background-color: var(--pinkBG);
+}
+
+article {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 2% 5%;
+  margin-bottom: 5%;
+}
+p {
+  margin: 0;
+}
