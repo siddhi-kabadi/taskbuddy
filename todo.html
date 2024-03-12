@@ -6,6 +6,7 @@
     <title>Task Buddy</title>
     <link rel="stylesheet" href="./stylesheets/base.css" />
     <link rel="stylesheet" href="./stylesheets/todo.css" />
+    <script defer src="todo.js"></script>
   </head>
   <body>
     <aside id="control-bar">
@@ -66,6 +67,13 @@
             <p class="due-date">due 3/1/2024</p>
           </article>
         </div>
+      </section>
+      <section id="addtask-popup">
+        <img src="Images/Mood Happy.png" />
+        <h1>Add New Task!</h1>
+        <input id="newtask-name" type="text" placeholder="Enter Task Name" />
+        <input id="newtask-due" type="date" placeholder="Enter Due Date" />
+        <button id="newtask-add">Add Task</button>
       </section>
     </main>
   </body>
