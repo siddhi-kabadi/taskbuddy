@@ -82,9 +82,14 @@ article {
   border-radius: 5px;
   padding: 2% 5%;
   margin-bottom: 5%;
+  cursor: pointer;
 }
 p {
   margin: 0;
+}
+
+.task-name {
+  font-weight: bold;
 }
 
 /*add task popup */
@@ -132,4 +137,24 @@ p {
 #newtask-add:hover {
   color: var(--darkgrey);
   background-color: #ffffff;
+}
+
+#close-popup {
+  text-align: left;
+  color: white;
+  padding: 0 0.6rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+#todo-list h1 {
+  color: var(--yellowText);
+}
+
+#inprogress-list h1 {
+  color: var(--greenText);
+}
+
+#completed-list h1 {
+  color: var(--pinkText);
 }

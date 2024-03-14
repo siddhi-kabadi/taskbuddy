@@ -36,3 +36,8 @@ button:hover {
 #time-icon {
   width: 10rem;
 }
+
+#moods-selection img:hover {
+  cursor: pointer;
+  scale: 1.2;
+}

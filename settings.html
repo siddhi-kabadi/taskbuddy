@@ -7,29 +7,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./stylesheets/base.css" />
-    <link rel="stylesheet" href="./stylesheets/index.css" />
+    <link rel="stylesheet" href="./stylesheets/settings.css" />
   </head>
+
   <body>
     <header>
       <h1>Task Buddy</h1>
     </header>
+
     <main>
-      <img id="time-icon" src="images/Sun Icon.png" />
-      <h1 id="greeting">Good Afternoon, Mandy!</h1>
-      <h2>How are you feeling now?</h2>
-      <section id="moods-selection">
-        <img src="./images/Mood Happy.png" />
-        <img src="./images/Mood Excited.png" />
-        <img src="./images/Mood Bad.png" />
-        <img src="./images/Mood Sad.png" />
-        <img src="./images/Mood Angry.png" />
-        <!-- Add more moods and adjust quality-->
-      </section>
-      <a href="./todo.html"><button>Start Planning!</button></a>
+      <div class="buttons-container">
+        <a href="todo.html"><span class="back-text">← Back</span></a>
+
+        <a href="login.html"
+          ><button type="button" id="logout-button">Log Out</button></a
+        >
+        <button type="button" id="delete-button">Delete Account</button>
+      </div>
     </main>
   </body>
 </html>
