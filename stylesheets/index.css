@@ -35,9 +35,33 @@ button:hover {
 
 #time-icon {
   width: 10rem;
+  animation: movement 3s ease-in-out infinite;
+}
+
+@keyframes movement {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-20px);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  75% {
+    transform: translateY(-20px);
+  }
 }
 
 #moods-selection img:hover {
   cursor: pointer;
   scale: 1.2;
+}
+
+.mood-img:hover {
+  transform: scale(1.9);
 }

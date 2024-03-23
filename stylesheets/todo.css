@@ -158,3 +158,119 @@ p {
 #completed-list h1 {
   color: var(--pinkText);
 }
+
+.move-arrow {
+  position: absolute;
+  top: 20px;
+}
+
+.move-left {
+  left: 10px;
+}
+
+.move-right {
+  right: 10px;
+}
+
+article {
+  position: relative;
+  padding: 10px 35px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.move-arrow:hover {
+  color: #000;
+  transform: scale(1.2);
+}
+
+.list {
+  opacity: 0;
+  transform: translateY(50%);
+  animation: slideUp 1s ease-in-out forwards;
+}
+
+#inprogress-list {
+  animation-delay: 0.5s; /* Delay for the second column */
+}
+
+#completed-list {
+  animation-delay: 1s; /* Delay for the third column */
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.25s ease-in forwards;
+}
+
+.list {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  position: relative; /* Ensure relative positioning for the heading */
+}
+
+h1::after {
+  content: ""; /* Create the horizontal line */
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* Adjust the position of the line as needed */
+  width: 100%;
+  height: 2px; /* Adjust the thickness of the line as needed */
+}
+
+/* Set the color of the horizontal line to match the heading color */
+#todo-list h1::after {
+  background-color: var(--yellowText);
+}
+
+#inprogress-list h1::after {
+  background-color: var(--greenText);
+}
+
+#completed-list h1::after {
+  background-color: var(--pinkText);
+}
+
+.completed-task {
+  text-decoration: line-through;
+  color: #999; /* Lighter gray color */
+}

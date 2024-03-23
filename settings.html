@@ -30,8 +30,51 @@
         <a href="login.html"
           ><button type="button" id="logout-button">Log Out</button></a
         >
-        <button type="button" id="delete-button">Delete Account</button>
+        <form id="delete-form" method="post">
+          <button type="button" id="delete-button">Delete Account</button>
+        </form>
       </div>
     </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("delete-button")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            console.log("Delete button clicked");
+            if (
+              confirm(
+                "Are you sure you want to delete your account? This action cannot be undone."
+              )
+            ) {
+              deleteAccount();
+            }
+          });
+
+        function deleteAccount() {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                if (xhr.responseText.includes("Success")) {
+                  alert(
+                    "Account deleted successfully. We're sorry to see you go :("
+                  );
+                  window.location.href = "login.html";
+                } else {
+                  alert("Failed to delete account. Please try again.");
+                }
+              } else {
+                console.error("Error deleting account.");
+              }
+            }
+          };
+
+          xhr.open("POST", "delete.php", true);
+          xhr.send();
+        }
+      });
+    </script>
   </body>
 </html>

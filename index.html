@@ -19,7 +19,7 @@
     </header>
     <main>
       <img id="time-icon" src="images/Sun Icon.png" />
-      <h1 id="greeting">Good Afternoon, Mandy!</h1>
+      <h1 id="greeting"></h1>
       <h2>How are you feeling now?</h2>
       <section id="moods-selection">
         <img src="./images/Mood Happy.png" />
@@ -27,9 +27,69 @@
         <img src="./images/Mood Bad.png" />
         <img src="./images/Mood Sad.png" />
         <img src="./images/Mood Angry.png" />
-        <!-- Add more moods and adjust quality-->
       </section>
       <a href="./todo.html"><button>Start Planning!</button></a>
     </main>
+    <script>
+      function setChosenMood(mood) {
+        localStorage.setItem("chosenMood", mood);
+      }
+
+      let previousImage = null;
+
+      document
+        .getElementById("moods-selection")
+        .addEventListener("click", function (event) {
+          if (event.target.tagName === "IMG") {
+            let chosenMood = event.target.src;
+            setChosenMood(chosenMood);
+
+            if (previousImage) {
+              previousImage.classList.remove("enlarged");
+            }
+
+            event.target.classList.add("enlarged");
+            previousImage = event.target;
+          }
+        });
+
+      function setTime() {
+        let time = new Date();
+        let hours = time.getHours();
+        let greeting = "Good ";
+
+        if (hours < 12 && hours >= 5) {
+          greeting += "Morning";
+        } else if (hours < 18 && hours >= 12) {
+          greeting += "Afternoon";
+        } else {
+          greeting += "Night";
+        }
+        //name
+        let name = "";
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            if (xhr.responseText.includes("No Name Found")) {
+              document.getElementById("greeting").innerText = greeting + "!";
+              console.log("No Name");
+            } else {
+              name = xhr.responseText;
+              console.log(name);
+              document.getElementById("greeting").innerText =
+                greeting + ", " + name + "!";
+            }
+          } else {
+            console.log("Server Error " + xhr.responseText);
+            document.getElementById("greeting").innerText = greeting + "!";
+          }
+        };
+        xhr.open("POST", "getName.php", true);
+        xhr.send();
+      }
+
+      setTime();
+      setInterval(setTime, 60000);
+    </script>
   </body>
 </html>
