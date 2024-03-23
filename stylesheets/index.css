@@ -57,11 +57,23 @@ button:hover {
   }
 }
 
+/*
 #moods-selection img:hover {
   cursor: pointer;
   scale: 1.2;
 }
+*/
+
+#moods-selection img.enlarged {
+  transform: scale(1.5);
+  transition: transform 0.3s ease-in-out;
+}
 
 .mood-img:hover {
-  transform: scale(1.9);
+  transform: scale(1.2);
+}
+
+.enlarged {
+  transform: scale(1.5);
+  transition: transform 0.3s ease-in-out;
 }

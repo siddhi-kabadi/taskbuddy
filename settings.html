@@ -27,10 +27,10 @@
       <div class="buttons-container">
         <a href="todo.html"><span class="back-text">← Back</span></a>
 
-        <a href="login.html"
-          ><button type="button" id="logout-button">Log Out</button></a
-        >
-        <form id="delete-form" method="post">
+        <form id="logout-form" method="post">
+          <button type="button" id="logout-button">Log Out</button>
+        </form>
+        <form id="delete-form" method="post" action="delete.php">
           <button type="button" id="delete-button">Delete Account</button>
         </form>
       </div>
@@ -45,7 +45,7 @@
             console.log("Delete button clicked");
             if (
               confirm(
-                "Are you sure you want to delete your account? This action cannot be undone."
+                "Are you sure you want to delete your account? This action cannot be undone. ☹️"
               )
             ) {
               deleteAccount();
@@ -72,6 +72,33 @@
           };
 
           xhr.open("POST", "delete.php", true);
+          xhr.send();
+        }
+        document
+          .getElementById("logout-button")
+          .addEventListener("click", (e) => {
+            e.preventDefault();
+            logOut();
+          });
+
+        function logOut() {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                if (xhr.responseText.includes("Success")) {
+                  alert("You've been logged out!");
+                  window.location.href = "login.html";
+                } else {
+                  alert(
+                    "Failed to logout. Please try again." + xhr.responseText
+                  );
+                }
+              } else {
+              }
+            }
+          };
+          xhr.open("POST", "logout.php", true);
           xhr.send();
         }
       });

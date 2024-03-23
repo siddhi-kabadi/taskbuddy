@@ -9,9 +9,15 @@ try{
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-  $task = $_POST["task"];
-  $due = $_POST["due"];
-  $pdo->prepare("INSERT INTO tasks(user_id,task_name,due_date) VALUES(?,?,?,?)")
+  $task = $_POST["taskName"];
+  $due = $_POST["dueDate"];
+  $sql = "INSERT INTO tasks(user_id,task_name,due_date,progress) VALUES(?,?,?,?)";
+  $stmt = $pdo->prepare($sql);
+  if($stmt->execute([$_SESSION['user_id'],$task,$due,0])){
+    echo "Task Added";
+  }else{
+    echo "Fail to Add Task";
+  }
 }
 
 ?>

@@ -1,4 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
+  (function loadData() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        if (xhr.responseText.includes("Error")) {
+          console.log("No Task");
+        } else {
+          taskList = xhr.responseText.match(/\[(.*?)\]/g);
+          taskList.forEach((newTask) => {
+            newTask = JSON.parse(newTask);
+            addTaskToSpecific(newTask[0], newTask[1], parseInt(newTask[2]));
+          });
+        }
+      } else {
+        console.log("Server Error: " + xhr.responseText);
+      }
+    };
+    xhr.open("POST", "loadData.php", true);
+    xhr.send();
+  })();
+
   let taskButton = document.getElementById("add-button");
   let taskPopup = document.getElementById("addtask-popup");
 
@@ -15,9 +36,31 @@ document.addEventListener("DOMContentLoaded", function () {
     let dueDate = document.getElementById("newtask-due").value;
     if (taskName && dueDate) {
       addTask(taskName, dueDate);
+      const formData = new FormData();
+      formData.append("taskName", taskName);
+      formData.append("dueDate", dueDate);
+
       document.getElementById("newtask-name").value = "";
       document.getElementById("newtask-due").value = "";
       taskPopup.style.display = "none";
+      //data update
+
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        console.log("change");
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            if (xhr.responseText.includes("Task Added")) {
+              console.log("Task Added");
+            }
+          } else {
+            console.log("Error" + xhr.responseText);
+          }
+        }
+      };
+
+      xhr.open("POST", "addTask.php", true);
+      xhr.send(formData);
     } else {
       alert("Please fill in all fields.");
     }
@@ -27,6 +70,29 @@ document.addEventListener("DOMContentLoaded", function () {
 function addTask(taskName, dueDate) {
   let newTaskDiv = createTaskElement(taskName, dueDate);
   let currentList = document.getElementById("todo-list");
+  currentList.appendChild(newTaskDiv);
+}
+function addTaskToSpecific(taskName, dueDate, location) {
+  let newTaskDiv = createTaskElement(taskName, dueDate);
+  let currentList;
+  if (location == 0) {
+    currentList = document.getElementById("todo-list");
+  } else if (location == 1) {
+    currentList = document.getElementById("inprogress-list");
+    let leftArrow = newTaskDiv.querySelector(".move-left");
+    if (leftArrow) {
+      leftArrow.style.display = "inline";
+    }
+  } else if (location == 2) {
+    newTaskDiv.classList.add("completed-task");
+    currentList = document.getElementById("completed-list");
+    let leftArrow = newTaskDiv.querySelector(".move-left");
+    if (leftArrow) {
+      leftArrow.style.display = "inline";
+    }
+  } else {
+    return;
+  }
   currentList.appendChild(newTaskDiv);
 }
 
@@ -66,15 +132,28 @@ function createMoveSpan(text, className, direction) {
 function moveTask(taskElement, direction) {
   let currentListId = taskElement.parentNode.id;
   let targetParentId;
+  let move;
+
+  if (currentListId === "todo-list") {
+    move = 0;
+  }
 
   if (direction === "right") {
-    if (currentListId === "todo-list") targetParentId = "inprogress-list";
-    else if (currentListId === "inprogress-list")
-      targetParentId = "completed-list";
-  } else if (direction === "left") {
-    if (currentListId === "inprogress-list") targetParentId = "todo-list";
-    else if (currentListId === "completed-list")
+    if (currentListId === "todo-list") {
       targetParentId = "inprogress-list";
+      move = 1;
+    } else if (currentListId === "inprogress-list") {
+      targetParentId = "completed-list";
+      move = 2;
+    }
+  } else if (direction === "left") {
+    if (currentListId === "inprogress-list") {
+      targetParentId = "todo-list";
+      move = 0;
+    } else if (currentListId === "completed-list") {
+      targetParentId = "inprogress-list";
+      move = 1;
+    }
   }
 
   if (targetParentId) {
@@ -99,4 +178,37 @@ function moveTask(taskElement, direction) {
     rightArrow.style.display =
       targetParentId === "completed-list" ? "none" : "inline";
   }
+
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      if (xhr.responseText.includes("Task Updated")) {
+        console.log("Task Updated");
+      } else {
+        console.log("Unable to Move Task");
+      }
+    } else {
+      console.log("Server Error: " + xhr.responseText);
+    }
+  };
+  const name = taskElement.querySelector(".task-name");
+
+  formData = new FormData();
+  formData.append("progress", move);
+  formData.append("taskName", name.innerHTML);
+  xhr.open("POST", "changeProgress.php", true);
+  xhr.send(formData);
 }
+
+document
+  .getElementById("delete-completed-tasks")
+  .addEventListener("click", function (event) {
+    event.preventDefault();
+    const completedList = document.getElementById("completed-list");
+    while (completedList.firstChild) {
+      completedList.removeChild(completedList.firstChild);
+    }
+    const header = document.createElement("h1");
+    header.textContent = "Completed";
+    completedList.appendChild(header);
+  });

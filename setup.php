@@ -3,7 +3,6 @@
   try{
     $pdo = new PDO("sqlite: ".$databaseFile);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     $userTable = "CREATE TABLE IF NOT EXISTS users(
       user_id INTEGER PRIMARY KEY AUTOINCREMENT,
       username Text,
@@ -11,9 +10,10 @@
       full_name Text
     )";
     $taskTable = "CREATE TABLE IF NOT EXISTS tasks(
-      user_id INT(6) PRIMARY KEY,
+      user_id INT(6),
       task_name Text,
-      due_date Date
+      due_date Date,
+      progress INTEGER
     )";
     $pdo->exec($userTable);
     $pdo->exec($taskTable);

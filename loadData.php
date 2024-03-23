@@ -15,8 +15,8 @@ try{
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
   if($result){
     foreach($result as $row){
-      $task = array($row["task_name"],$row["due_date"]);
-      echo json_encode($array);
+      $task = array($row["task_name"],$row["due_date"],$row["progress"]);
+      echo json_encode($task);
     }
   }else{
     echo "Error";

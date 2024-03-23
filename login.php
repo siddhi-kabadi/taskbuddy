@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     $check = $pdo->prepare("SELECT password, user_id, full_name FROM users WHERE username = ?");
     $check->execute([$username]);
     $result = $check->fetch(PDO::FETCH_ASSOC);
-    echo var_dump($result);
     if($result){
       if(password_verify($password, $result['password'])){
         $_SESSION['user_id'] = $result['user_id'];

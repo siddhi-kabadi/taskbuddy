@@ -60,18 +60,18 @@
           if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
               if (xhr.responseText.includes("Success")) {
-                console.log("Successful Login!");
+                console.log("Successful Login! ");
                 window.location.href = "index.html";
               } else if (xhr.responseText.includes("Not Registered")) {
-                alert("Username Incorrect or Not Registered :(");
+                alert("Username Incorrect or Not Registered 😓");
               } else if (xhr.responseText.includes("Incorrect Password")) {
-                alert("Incorrect Password :(");
+                alert("Incorrect Password 😓");
               }
             } else {
               console.log("Fail to Login.");
             }
           } else {
-            console.log("Error" + xhr.responseText);
+            console.log("Error " + xhr.responseText);
           }
         };
 

@@ -252,12 +252,11 @@ h1::after {
   content: ""; /* Create the horizontal line */
   position: absolute;
   left: 0;
-  bottom: -5px; /* Adjust the position of the line as needed */
+  bottom: -5px;
   width: 100%;
-  height: 2px; /* Adjust the thickness of the line as needed */
+  height: 2px;
 }
 
-/* Set the color of the horizontal line to match the heading color */
 #todo-list h1::after {
   background-color: var(--yellowText);
 }
@@ -272,5 +271,17 @@ h1::after {
 
 .completed-task {
   text-decoration: line-through;
-  color: #999; /* Lighter gray color */
+  color: #999;
+}
+
+#completed-list {
+  background-color: var(--pinkBG);
+  position: relative;
+}
+
+#delete-completed-tasks {
+  position: absolute;
+  bottom: 10px;
+  left: 50%; /* Position it in the center */
+  transform: translateX(-50%);
 }
